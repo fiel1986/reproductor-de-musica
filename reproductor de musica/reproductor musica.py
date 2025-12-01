@@ -16,18 +16,18 @@ WIDTH, HEIGHT = 900, 600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Reproductor de Música")
 
-# --- Paleta de Colores y Fuentes (AJUSTADA PARA 3D) ---
-BACKGROUND = (25, 20, 35)      # Color de fondo principal (azul oscuro)
-PRIMARY = (118, 75, 162)       # Color primario (púrpura)
-SECONDARY = (58, 175, 169)     # Color secundario (verde azulado)
-ACCENT = (239, 71, 111)        # Color de acento (rosa)
-TEXT_COLOR = (240, 240, 250)   # Color del texto (blanco grisáceo)
+# --- Paleta de Colores y Fuentes ---
+BACKGROUND = (25, 20, 35)      
+PRIMARY = (118, 75, 162)      
+SECONDARY = (58, 175, 169)   
+ACCENT = (239, 71, 111)      
+TEXT_COLOR = (240, 240, 250)   
 
-# Colores Base para Botones 3D
-BUTTON_BASE = (70, 45, 120)    # Color base del botón (Púrpura Oscuro)
-BUTTON_HIGHLIGHT = (100, 75, 150) # Color de la luz (borde superior e izquierdo)
-BUTTON_SHADOW = (40, 25, 65)   # Color de la sombra (borde inferior y derecho)
-BUTTON_ACTIVE = (50, 30, 80)   # Color cuando el botón está presionado
+# Colores para Botones 3D
+BUTTON_BASE = (70, 45, 120)    
+BUTTON_HIGHLIGHT = (100, 75, 150) 
+BUTTON_SHADOW = (40, 25, 65)   
+BUTTON_ACTIVE = (50, 30, 80)   
 
 # Configurar diferentes tamaños de fuentes
 font_small = pygame.font.SysFont("sans-serif", 16)
@@ -46,7 +46,7 @@ song_length = 1
 # --- Variables para el scroll de la playlist ---
 playlist_scroll_offset = 0
 MAX_PLAYLIST_ITEMS = 4
-is_dragging_volume = False # Nuevo: Indica si el control de volumen está siendo arrastrado
+is_dragging_volume = False 
 
 # --- Definir áreas rectangulares (Rects) para los botones ---
 
@@ -65,7 +65,7 @@ prev_button_rect = pygame.Rect(controls_start_x, controls_y, button_size, button
 play_pause_button_rect = pygame.Rect(controls_start_x + button_size + button_spacing, controls_y, button_size, button_size)
 next_button_rect = pygame.Rect(controls_start_x + (button_size + button_spacing) * 2, controls_y, button_size, button_size)
 
-# Área de la playlist para detectar el scroll del mouse
+
 playlist_area = pygame.Rect(50, 480, WIDTH - 100, 120)
 
 # --- FIN DE AJUSTES DE VARIABLES DE CONFIGURACIÓN ---
@@ -104,7 +104,7 @@ def load_songs():
     return len(songs) > 0
 
 def ensure_song_is_visible(index):
-    """ Ajusta el scroll para que la canción en el índice dado sea visible """
+    
     global playlist_scroll_offset
     
     if index < playlist_scroll_offset:
@@ -113,7 +113,7 @@ def ensure_song_is_visible(index):
         playlist_scroll_offset = index - MAX_PLAYLIST_ITEMS + 1
 
 def load_and_play_song(index):
-    """ Carga y reproduce la canción en el índice especificado """
+    
     global music_playing, paused, current_time, song_length, current_song_index
     
     if 0 <= index < len(songs):
@@ -145,19 +145,17 @@ def format_time(seconds):
     seconds = int(seconds % 60)
     return f"{minutes}:{seconds:02d}"
 
-# --- NUEVA FUNCIÓN PARA EL BOTÓN 3D ---
+
 def draw_3d_button(surface, rect, text_label, is_hovering, is_pressed=False):
-    """
-    Dibuja un botón rectangular con efecto 3D/relieve.
-    """
+
     relief = 4
     
-    # 1. Definir los colores basados en el estado
+    
     base_color = BUTTON_ACTIVE if is_pressed else BUTTON_BASE
     light_color = BUTTON_SHADOW if is_pressed else BUTTON_HIGHLIGHT
     shadow_color = BUTTON_HIGHLIGHT if is_pressed else BUTTON_SHADOW
     
-    # 2. Dibujar la sombra (borde inferior y derecho)
+   
     pygame.draw.rect(surface, shadow_color, (rect.x + relief, rect.y + relief, rect.width, rect.height), border_radius=5)
     
     # 3. Dibujar la luz (borde superior e izquierdo)
@@ -293,7 +291,7 @@ def draw_controls():
                      (next_button_rect.centerx + 12, next_button_rect.centery + 12), 3)
 
 def draw_progress_bar():
-    """ Dibuja la barra de progreso de la canción actual """
+    """ Dibuja barra de progreso de la canción actual """
     global current_time
     
     bar_y = 440
@@ -317,7 +315,7 @@ def draw_progress_bar():
 
 def draw_volume_control():
     """ Dibuja el control deslizante de volumen (Posición Ajustada) """
-    # COORDENADAS AJUSTADAS PARA ALEJARLO DE LA PLAYLIST
+    
     bar_y = 85 
     bar_width = 100 
     bar_x = WIDTH - 120 
@@ -491,4 +489,5 @@ def main():
     mixer.quit()
 
 if __name__ == "__main__":
+
     main()
